@@ -3,6 +3,8 @@ define(function(require) {
     init: function() {
       var $ = require('jquery');
       var _ = require('underscore');
+      require('jquery-ui');
+
       var deviceTemplate = require('hbs!./templates/device');
       var sceneTemplate = require('hbs!./templates/scene');
 
@@ -15,8 +17,12 @@ define(function(require) {
         console.log(arguments);
       };
 
+      var isDimmable = function(device) {
+        return !device.device_type ? false : device.device_type.indexOf("urn:schemas-upnp-org:device:DimmableLight") !== -1;
+      };
+
       var createDeviceElement = function(device) {
-        return deviceTemplate({ name: device.name, id: device.id });
+        return deviceTemplate({ name: device.name, id: device.id, dimmable: isDimmable(device) });
       };
 
       var createSceneTemplate = function(scene) {
@@ -27,6 +33,16 @@ define(function(require) {
         var element = $(createDeviceElement(device)).appendTo('.devices');
         element.find('.js-on-button').click(_.partial(UpnpDevice.setDeviceStatus, device.id, DeviceStatus.ON));
         element.find('.js-off-button').click(_.partial(UpnpDevice.setDeviceStatus, device.id, DeviceStatus.OFF));
+        var dimmerLevel = _.findWhere(device.states, {
+            "service": "urn:upnp-org:serviceId:Dimming1",
+            "variable": "LoadLevelStatus"
+          }).value;
+
+        var slider = element.find('.slider').slider({"value": dimmerLevel});
+        slider.on("slide", _.throttle(function(event) {
+          var value = slider.slider('value');
+          UpnpDevice.setDimmerLevel(device.id, value);
+        }, 500));
       };
 
       var appendToScenesList = function(scene) {

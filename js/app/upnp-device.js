@@ -20,8 +20,20 @@ define(function(require) {
     }).error(log);
   };
 
+  var setDimmerLevel = function(deviceId, level) {
+    vera.dataRequest("lu_action", {
+      "output_format": "json",
+      "DeviceNum": deviceId,
+      "serviceId": "urn:upnp-org:serviceId:Dimming1",
+      "action": "SetLoadLevelTarget",
+      "newLoadlevelTarget": level.toString(),
+      "rand": Math.random()
+    }).error(log);
+  };
+
   return {
     isUpnpDevice: isUpnpDevice,
-    setDeviceStatus: setDeviceStatus
+    setDeviceStatus: setDeviceStatus,
+    setDimmerLevel: setDimmerLevel
   };
 });

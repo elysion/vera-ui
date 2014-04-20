@@ -7,6 +7,7 @@
     "requirejs": "",
     "require-handlebars-plugin": "",
     "handlebars": "",
-    "bootstrap": ""
+    "bootstrap": "",
+    "jquery-ui": ""
   }
 }

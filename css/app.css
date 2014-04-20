@@ -1,5 +1,9 @@
 .l-scene, .l-device {
     display: inline-block;
-    width: 300px;
+    width: 200px;
+    margin: 10px;
+}
+
+.l-slider {
     margin: 10px;
 }
