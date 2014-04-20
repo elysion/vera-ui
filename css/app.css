@@ -1,6 +1,12 @@
-.l-scene, .l-device {
+.l-device {
     display: inline-block;
-    width: 200px;
+    width: 130px;
+    margin: 10px;
+}
+
+.l-scene {
+    display: inline-block;
+    width: 110px;
     margin: 10px;
 }
 
