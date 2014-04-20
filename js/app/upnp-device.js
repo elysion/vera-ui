@@ -9,10 +9,10 @@ define(function(require) {
     return device.device_type.indexOf("urn:schemas-upnp-org:device") !== -1;
   };
 
-  var setDeviceStatus = function(device, status) {
+  var setDeviceStatus = function(deviceId, status) {
     vera.dataRequest("lu_action", {
       "output_format": "json",
-      "DeviceNum": device.id,
+      "DeviceNum": deviceId,
       "serviceId": "urn:upnp-org:serviceId:SwitchPower1",
       "action": "SetTarget",
       "newTargetValue": status.toString(),

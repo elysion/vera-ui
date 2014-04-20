@@ -11,6 +11,10 @@ define(function(require) {
     return config.protocol + "://" + config.domain + "/port_3480/data_request";
   };
 
+  var getHagRequestUrl = function() {
+    return config.protocol + "://" + config.domain +"/port_49451/upnp/control/hag";
+  };
+
   var transformParameters = function(parameters) {
     return !parameters ? [] : _.pairs(parameters).map(function(item) {
       return {"name": item[0], "value": item[1]};
@@ -21,7 +25,18 @@ define(function(require) {
     return $.ajax(getDataRequestUrl() + "?id=" + action + "&" + $.param(transformParameters(parameters)));
   };
 
+  var hagRequest = function(action, data) {
+    return $.ajax({
+      url: getHagRequestUrl(),
+      method: "POST",
+      contentType: "text/xml",
+      data: data,
+      headers: {"SOAPACTION": '"' + action + '"', "MIME-Version": "1.0", "X-Prototype-Version": "1.7"}
+    });
+  };
+
   return {
-    "dataRequest": dataRequest
+    "dataRequest": dataRequest,
+    "hagRequest": hagRequest
   };
 });
