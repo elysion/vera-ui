@@ -20,26 +20,27 @@ define(function(require) {
         return upnpDeviceTemplate({ name: device.name, id: device.id });
       };
 
-      var appendElementToDevicesList = function(deviceElement) {
-        $('.devices').append(deviceElement);
+      var appendToDevicesList = function(device) {
+        console.log($('.devices'));
+        var element = $(createDeviceElement(device)).appendTo('.devices');
+        element.find('.js-on-button').click(_.partial(switchOnDevice, device));
+      };
+
+      var switchOnDevice = function(device) {
+        vera.dataRequest("lu_action", {
+          "output_format": "json",
+          "DeviceNum": device.id,
+          "serviceId": "urn:upnp-org:serviceId:SwitchPower1",
+          "action": "SetTarget",
+          "newTargetValue": "1",
+          "rand": Math.random()
+        }).done(log)
+          .error(log);
       };
 
       var showDevices = function(data) {
         $('.devices').empty();
-        _.chain(data.devices).filter(isUpnpDevice).map(createDeviceElement).each(appendElementToDevicesList);
-        $('.js-on-button').click(function(event) {
-          console.log(event)
-          var deviceId = event.target.attributes["data-device-id"].value
-
-          vera.dataRequest("lu_action", {
-            "output_format": "json",
-            "DeviceNum": deviceId,
-            "serviceId": "urn:upnp-org:serviceId:Dimming1",
-            "action": "SetLoadLevelTarget",
-            "newLoadlevelTarget": "100",
-            "rand": "0.2725291810929775"
-          })
-        })
+        _.chain(data.devices).filter(isUpnpDevice).each(appendToDevicesList);
       };
 
       vera.dataRequest("user_data")
