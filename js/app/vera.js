@@ -3,16 +3,16 @@ define(function(require) {
   var _ = require('underscore');
 
   var config = {
-    "domain": "vera",
+    "host": "vera",
     "protocol": "http"
   };
 
   var getDataRequestUrl = function() {
-    return config.protocol + "://" + config.domain + "/port_3480/data_request";
+    return config.protocol + "://" + config.host + "/port_3480/data_request";
   };
 
   var getHagRequestUrl = function() {
-    return config.protocol + "://" + config.domain +"/port_49451/upnp/control/hag";
+    return config.protocol + "://" + config.host +"/port_49451/upnp/control/hag";
   };
 
   var transformParameters = function(parameters) {
