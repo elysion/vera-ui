@@ -31,7 +31,7 @@ define(function(require) {
 
       var appendToScenesList = function(scene) {
         var element = $(createSceneTemplate(scene)).appendTo('.scenes');
-        element.find('.js-on-button').click(_.partial(Scene.runScene, scene.id));
+        element.find('.js-activate-button').click(_.partial(Scene.runScene, scene.id));
       };
 
       var showDevices = function(data) {
