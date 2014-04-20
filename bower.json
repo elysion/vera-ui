@@ -4,6 +4,8 @@
   "dependencies": {
     "underscore" : "",
     "jquery": "",
-    "requirejs": ""
+    "requirejs": "",
+    "require-handlebars-plugin": "",
+    "handlebars": ""
   }
 }
