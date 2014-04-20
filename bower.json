@@ -6,6 +6,7 @@
     "jquery": "",
     "requirejs": "",
     "require-handlebars-plugin": "",
-    "handlebars": ""
+    "handlebars": "",
+    "bootstrap": ""
   }
 }
