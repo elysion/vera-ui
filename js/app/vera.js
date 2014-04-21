@@ -4,7 +4,7 @@ define(function(require) {
 
   var config = {
     veraIp: "192.168.1.105",
-    corsProxyUrl: "127.0.0.1:8080"
+    corsProxyUrl: "raspi:8080"
   };
 
   var getCorsProxiedPath = function(path) {
