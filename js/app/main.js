@@ -29,20 +29,26 @@ define(function(require) {
         return sceneTemplate({ name: scene.name, id: scene.id });
       };
 
+      var getInitialDimmerLevel = function(device) {
+        return _.findWhere(device.states, {
+          "service": "urn:upnp-org:serviceId:Dimming1",
+          "variable": "LoadLevelStatus"
+        }).value;
+      };
+
+      var setDimmerLevelFromSlider = function(deviceId) {
+        UpnpDevice.setDimmerLevel(deviceId, $(this).slider('value'));
+      };
+
       var appendToDevicesList = function(device) {
         var element = $(createDeviceElement(device)).appendTo('.devices');
         element.find('.js-on-button').click(_.partial(UpnpDevice.setDeviceStatus, device.id, DeviceStatus.ON));
         element.find('.js-off-button').click(_.partial(UpnpDevice.setDeviceStatus, device.id, DeviceStatus.OFF));
-        var dimmerLevel = _.findWhere(device.states, {
-            "service": "urn:upnp-org:serviceId:Dimming1",
-            "variable": "LoadLevelStatus"
-          }).value;
 
-        var slider = element.find('.slider').slider({"value": dimmerLevel});
-        slider.on("slide", _.throttle(function(event) {
-          var value = slider.slider('value');
-          UpnpDevice.setDimmerLevel(device.id, value);
-        }, 500));
+        var slider = element.find('.slider').slider({
+          "value": getInitialDimmerLevel(device),
+          "change": _.partial(setDimmerLevelFromSlider, device.id)
+        });
       };
 
       var appendToScenesList = function(scene) {
