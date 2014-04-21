@@ -10,5 +10,9 @@
   "devDependencies": {
     "bower": "latest",
     "requirejs": "latest"
+  },
+  "dependencies": {
+    "node-static": "latest",
+    "cors-anywhere": "latest"
   }
 }

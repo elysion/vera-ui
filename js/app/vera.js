@@ -3,16 +3,20 @@ define(function(require) {
   var _ = require('underscore');
 
   var config = {
-    "host": "vera",
-    "protocol": "http"
+    veraIp: "192.168.1.105",
+    corsProxyUrl: "127.0.0.1:8080"
   };
 
+  var getCorsProxiedPath = function(path) {
+    return "http://" + config.corsProxyUrl + "/" + config.veraIp + path;
+  }
+
   var getDataRequestUrl = function() {
-    return config.protocol + "://" + config.host + "/port_3480/data_request";
+    return getCorsProxiedPath("/port_3480/data_request");
   };
 
   var getHagRequestUrl = function() {
-    return config.protocol + "://" + config.host +"/port_49451/upnp/control/hag";
+    return getCorsProxiedPath("/port_49451/upnp/control/hag");
   };
 
   var transformParameters = function(parameters) {
