@@ -8,6 +8,7 @@
     "require-handlebars-plugin": "",
     "handlebars": "",
     "bootstrap": "",
-    "jquery-ui": ""
+    "jquery-ui": "",
+    "almond": ""
   }
 }
