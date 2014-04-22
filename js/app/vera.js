@@ -9,7 +9,7 @@ define(function(require) {
 
   var getCorsProxiedPath = function(path) {
     return "http://" + config.corsProxyUrl + "/" + config.veraIp + path;
-  }
+  };
 
   var getDataRequestUrl = function() {
     return getCorsProxiedPath("/port_3480/data_request");
@@ -19,14 +19,8 @@ define(function(require) {
     return getCorsProxiedPath("/port_49451/upnp/control/hag");
   };
 
-  var transformParameters = function(parameters) {
-    return !parameters ? [] : _.pairs(parameters).map(function(item) {
-      return {"name": item[0], "value": item[1]};
-    });
-  };
-
   var dataRequest = function(action, parameters) {
-    return $.ajax(getDataRequestUrl() + "?id=" + action + "&" + $.param(transformParameters(parameters)));
+    return $.ajax(getDataRequestUrl() + "?id=" + action + "&" + $.param(parameters));
   };
 
   var hagRequest = function(action, data) {
