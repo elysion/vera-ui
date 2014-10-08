@@ -1,0 +1,9 @@
+CACHE MANIFEST
+# v3
+index.html
+dist/main.min.js
+dist/styles.min.css
+
+NETWORK:
+*
+http://*
