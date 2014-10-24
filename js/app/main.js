@@ -30,10 +30,12 @@ define(function(require) {
       };
 
       var getInitialDimmerLevel = function(device) {
-        return _.findWhere(device.states, {
+        var deviceDimmingState = _.findWhere(device.states, {
           "service": "urn:upnp-org:serviceId:Dimming1",
           "variable": "LoadLevelStatus"
-        }).value;
+        });
+
+        return deviceDimmingState ? deviceDimmingState.value : 0;
       };
 
       var setDimmerLevelFromSlider = function(deviceId) {
