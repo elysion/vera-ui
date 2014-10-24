@@ -20,7 +20,7 @@ define(function(require) {
   };
 
   var dataRequest = function(action, parameters) {
-    return $.ajax(getDataRequestUrl() + "?id=" + action + "&" + $.param(parameters));
+    return $.ajax(getDataRequestUrl() + "?id=" + action + "&" + $.param(parameters || []));
   };
 
   var hagRequest = function(action, data) {
