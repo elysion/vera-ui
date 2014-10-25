@@ -68,10 +68,19 @@ define(function(require) {
         _.chain(data.scenes).each(appendToScenesList);
       };
 
-      Vera.dataRequest("user_data")
-        .done(showDevices)
-        .done(showScenes)
-        .error(log);
+      function updateUi() {
+        Vera.dataRequest("user_data")
+          .done(showDevices)
+          .done(showScenes)
+          .error(log);
+      }
+
+      $('.js-refresh').click(updateUi);
+
+      updateUi();
+
+      $('.sortable').sortable();
+      $('.sortable').disableSelection();
     }
   };
 });
