@@ -1,13 +1,15 @@
-.l-device {
+.l-grid-panel {
     display: inline-block;
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
+
+.l-device {
     width: 130px;
-    margin: 10px;
 }
 
 .l-scene {
-    display: inline-block;
-    width: 110px;
-    margin: 10px;
+    width: 130px;
 }
 
 .l-slider {
